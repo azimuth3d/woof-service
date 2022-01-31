@@ -1,0 +1,20 @@
+version: "3"
+services:
+  woof-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: azimuth3d/woof-service
+    volumes:
+      - ".:/home/woof-service"
+    environment:
+      - DB_CONNECTION_STRING=mongodb://root:SPCk2CbY@mongodb:27000
+      - WOOF_COLLECTION_NAME="woof"
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: SPCk2CbY
+    ports:
+      - 27000:27017
+  

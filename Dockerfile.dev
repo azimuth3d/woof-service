@@ -1,0 +1,10 @@
+FROM golang:1.17.0-alpine
+RUN mkdir -p /home/woof-service
+WORKDIR /home/woof-service
+RUN apk update  && \ 
+    apk --no-cache add gcc g++ make inotify-tools && \
+    rm -rf /var/cache/apk/*
+    
+RUN go get github.com/cespare/reflex
+COPY ./reflex.conf /
+ENTRYPOINT ["reflex", "-c", "/reflex.conf"]
