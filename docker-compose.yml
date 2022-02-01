@@ -10,6 +10,9 @@ services:
     environment:
       - DB_CONNECTION_STRING=mongodb://root:SPCk2CbY@mongodb:27000
       - WOOF_COLLECTION_NAME="woof"
+  nats:
+    image: nats-streaming:0.17.0
+    restart: always
   mongodb:
     image: mongo:latest
     environment:
