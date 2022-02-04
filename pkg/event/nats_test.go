@@ -14,6 +14,7 @@
 package event
 
 import (
+	"log"
 	"testing"
 
 	"github.com/nats-io/nats.go"
@@ -47,5 +48,24 @@ func TestConnectionStatus(t *testing.T) {
 	}
 	if !nc.IsClosed() {
 		t.Fatal("Should have status set to CLOSED")
+	}
+}
+
+func TestNewNatsEventStore(t *testing.T) {
+	s := RunDefaultServer()
+	defer s.Shutdown()
+
+	// nc := NewDefaultConnection(t)
+
+	nes, err := NewNatsEventStore("nats://127.0.0.1:4222")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	t.Log(nes.Connection.Status())
+
+	if nes.Connection == nil {
+		t.Fatal("Should have connection")
 	}
 }
